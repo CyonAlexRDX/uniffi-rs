@@ -87,7 +87,7 @@ object NoPointer
 {%- include "StringHelper.kt" %}
 
 {%- when Type::Bytes %}
-{%- include "ByteArrayHelper.kt" %}
+{%- include "BytesHelper.kt" %}
 
 {%- when Type::Enum { name, module_path } %}
 {%- let e = ci.get_enum_definition(name).unwrap() %}

@@ -9,12 +9,20 @@ import uniffi.coverall.*
 
 // TODO: use an actual test runner.
 
+fun bytesFromString(string: string): List<Byte> {
+    string.toByteArray(Charsets.UTF_8).filter(predicate: { it })
+}
+fun List<Byte>.toStringFromUtf8(): String {
+
+}
+
+
 // Test some_dict().
 // N.B. we need to `use` here to clean up the contained `Coveralls` reference.
 createSomeDict().use { d ->
     assert(d.text == "text")
     assert(d.maybeText == "maybe_text")
-    assert(d.someBytes.contentEquals("some_bytes".toByteArray(Charsets.UTF_8)))
+    assert(d.someBytes == bytesFromString("some_bytes").toStringFromUtf8())
     assert(d.maybeSomeBytes.contentEquals("maybe_some_bytes".toByteArray(Charsets.UTF_8)))
     assert(d.aBool)
     assert(d.maybeABool == false)
@@ -44,7 +52,7 @@ createSomeDict().use { d ->
 createNoneDict().use { d ->
     assert(d.text == "text")
     assert(d.maybeText == null)
-    assert(d.someBytes.contentEquals("some_bytes".toByteArray(Charsets.UTF_8)))
+    assert(d.someBytes == bytesFromString("some_bytes").toStringFromUtf8())
     assert(d.maybeSomeBytes == null)
     assert(d.aBool)
     assert(d.maybeABool == null)
